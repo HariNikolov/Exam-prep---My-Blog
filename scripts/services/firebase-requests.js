@@ -59,7 +59,7 @@ export const fireBaseRequestFactory = (apiKey, uid, collectionName, token) => {
   const updateEntity = (entityBody, id) => {
     return fetch(
       apiKey +
-        `${uid}/${collectionUrl}/${id}.json` +
+        `${uid}/${collectionName}/${id}.json` +
         (token ? `?auth=${token}` : ""),
       {
         method: "PUT",
@@ -75,7 +75,9 @@ export const fireBaseRequestFactory = (apiKey, uid, collectionName, token) => {
    */
   const patchEntity = (entityBody, id) => {
     return fetch(
-      `${collectionUrl}/${id}.json` + (token ? `?auth=${token}` : ""),
+      apiKey +
+        `${uid}/${collectionName}/${id}.json` +
+        (token ? `?auth=${token}` : ""),
       {
         method: "PATCH",
         body: JSON.stringify(entityBody),

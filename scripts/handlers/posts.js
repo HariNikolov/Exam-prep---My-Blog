@@ -17,7 +17,6 @@ export function create() {
     "posts",
     sessionStorage.getItem("token")
   );
-
   let formRef = document.querySelector("#create-form");
   let form = createFormEntity(formRef, ["title", "category", "content"]);
   let formValue = form.getValue();
@@ -33,16 +32,16 @@ export async function detailsViewHandler() {
     "posts",
     sessionStorage.getItem("token")
   );
-
   let id = this.params.id;
   firebasePost.getById(id).then((res) => {
-    this.details = [{ ...res }];
+    this.details = [{ ...res, id: this.params.id }];
     this.partial("./templates/create/details.hbs");
   });
 }
 
 export async function editPostHandler() {
   await applyCommon.call(this);
+  this.postId = this.params.id;
   this.partials.createPostForm = await this.load(
     "./templates/create/createForm.hbs"
   );
@@ -53,13 +52,13 @@ export async function editPostHandler() {
     "posts",
     sessionStorage.getItem("token")
   );
-  const firebaseEditPost = fireBaseRequestFactory(
+  const firebaseEditPost = await fireBaseRequestFactory(
     "https://spa-exam-f0239.firebaseio.com/",
     sessionStorage.getItem("userId"),
     "posts",
     sessionStorage.getItem("token")
   );
-  firebasePost
+  await firebasePost
     .getAll()
     .then((x) => x || {})
     .then((res) => {
@@ -68,8 +67,7 @@ export async function editPostHandler() {
       });
       this.partial("./templates/home/home.hbs");
     });
-  this.postId = this.params.id;
-  firebaseEditPost.getById(this.postId).then((res) => {
+  await firebaseEditPost.getById(this.postId).then((res) => {
     this.post = [{ ...res, id: this.params.id }];
     this.partial("./templates/home/home.hbs");
   });
@@ -82,11 +80,15 @@ export function edit() {
     "posts",
     sessionStorage.getItem("token")
   );
+  this.postId = this.params.id;
 
   let formRef = document.querySelector("#edit-form");
   let form = createFormEntity(formRef, ["title", "category", "content"]);
   let formValue = form.getValue();
-  firebasePosts.updateEntity(formValue, this.postId).then((res) => res);
+  firebasePosts.updateEntity(formValue, this.postId).then((res) => {
+    res;
+    this.redirect(["#/home"]);
+  });
 }
 
 export function deleteHandler() {

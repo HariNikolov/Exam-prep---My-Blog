@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/style.css">
+  <title>MyBlog</title>
+
+  <!-- Modules -->
+  <script src="./node_modules/jquery/dist/jquery.js"></script>
+  <script src="./node_modules/handlebars/dist/handlebars.js"></script>
+  <script src="./node_modules/sammy/lib/sammy.js"></script>
+  <script src="./node_modules/sammy/lib/plugins/sammy.handlebars.js"></script>
+
+  <!-- Firebase -->
+  <script defer src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBRly6MpooS4tdsyzmX-vDl4Ef31trwrTU",
+      authDomain: "spa-exam-f0239.firebaseapp.com",
+      databaseURL: "https://spa-exam-f0239.firebaseio.com",
+      projectId: "spa-exam-f0239",
+      storageBucket: "spa-exam-f0239.appspot.com",
+      messagingSenderId: "492929270324",
+      appId: "1:492929270324:web:abfed691a373c86d1cc061",
+      measurementId: "G-BS9NLKJRXN"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <!-- Scripts -->
+  <script src="./scripts/app.js" type="module"></script>
+
+</head>
+
+<body>
+  <div id="main"></div>
+
+</body>
+
+</html>
